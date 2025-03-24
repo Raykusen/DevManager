@@ -21,7 +21,7 @@
 
 <div class="container">
     <div class="modal" style="display: @(showModal ? "block" : "none"); background-color: rgba(0, 0, 0, 0.5);" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-dark text-white">
                     <h5 class="modal-title"><b>@TituloForm</b></h5>
@@ -38,87 +38,96 @@
                             <label for="description">Descripción</label>
                             <textarea id="description" @bind="request.Description" class="form-control" disabled="@IsDeveloper"></textarea>
                         </div>
-
                         <div class="row">
                             <div class="col">
-                                <div class="form-group fw-bold">
-                                    <label for="startDate">Fecha de inicio</label>
-                                    <input type="date" id="startDate" @bind="request.StartDate" class="form-control" disabled="@IsDeveloper">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group fw-bold">
+                                            <label for="startDate">Fecha de inicio</label>
+                                            <input type="date" id="startDate" @bind="request.StartDate" class="form-control" disabled="@IsDeveloper">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group fw-bold">
+                                            <label for="dueDate">Fecha de vencimiento</label>
+                                            <input type="date" id="dueDate" @bind="request.DueDate" class="form-control" disabled="@IsDeveloper">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group fw-bold">
-                                    <label for="dueDate">Fecha de vencimiento</label>
-                                    <input type="date" id="dueDate" @bind="request.DueDate" class="form-control" disabled="@IsDeveloper">
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group fw-bold">
-                                    <label>Prioridad</label>
-                                    <select @bind="request.Priority" class="form-select" disabled="@IsDeveloper">
-                                        <option value="Low">Baja</option>
-                                        <option selected value="Normal">Normal</option>
-                                        <option value="High">Alta</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group fw-bold">
+                                            <label>Prioridad</label>
+                                            <select @bind="request.Priority" class="form-select" disabled="@IsDeveloper">
+                                                <option value="Low">Baja</option>
+                                                <option selected value="Normal">Normal</option>
+                                                <option value="High">Alta</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group fw-bold">
+                                            <label>Estado</label>
+                                            <select @bind="request.Status" class="form-select">
+                                                <option disabled>Elige un Estado</option>
+                                                <option selected value="Pendiente">Pendiente</option>
+                                                <option value="En Progreso">En Progreso</option>
+                                                <option value="Completada">Completada</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group fw-bold">
-                                    <label>Estado</label>
-                                    <select @bind="request.Status" class="form-select">
-                                        <option disabled>Elige un Estado</option>
-                                        <option selected value="Pendiente">Pendiente</option>
-                                        <option value="En Progreso">En Progreso</option>
-                                        <option value="Completada">Completada</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group fw-bold">
-                                    <label for="assignedTo">Choose a Project</label>
-                                    <select class="form-select" required @bind="request.ProjectID" disabled="@IsDeveloper">
-                                        @if (Projects.Any())
-                                        {
-                                            <option disabled selected>Selecciona un proyecto</option>
-                                            @foreach (var item in Projects)
-                                            {
-                                                <option value="@item.ProjectID">
-                                                    @item.ProjectName
-                                                </option>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <option disabled selected>No hay proyectos disponibles</option>
-                                        }
-                                    </select>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group fw-bold">
+                                            <label for="assignedTo">Choose a Project</label>
+                                            <select class="form-select" required @bind="request.ProjectID" disabled="@IsDeveloper">
+                                                @if (Projects.Any())
+                                                {
+                                                    <option disabled selected>Selecciona un proyecto</option>
+                                                    @foreach (var item in Projects)
+                                                    {
+                                                        <option value="@item.ProjectID">
+                                                            @item.ProjectName
+                                                        </option>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <option disabled selected>No hay proyectos disponibles</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group fw-bold">
+                                            <label for="assignedTo">Asignado a</label>
+                                            <select class="form-select" required @bind="request.AssignedTo" disabled="@IsDeveloper">
+                                                @if (Users.Any())
+                                                {
+                                                    <option disabled selected>Selecciona un usuario</option>
+                                                    @foreach (var item in Users)
+                                                    {
+                                                        <option value="@item.UserID">
+                                                            @item.FirstName @item.LastName
+                                                        </option>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <option disabled selected>No hay usuarios disponibles</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group fw-bold">
-                                    <label for="assignedTo">Asignado a</label>
-                                    <select class="form-select" required @bind="request.AssignedTo" disabled="@IsDeveloper">
-                                        @if (Users.Any())
-                                        {
-                                            <option disabled selected>Selecciona un usuario</option>
-                                            @foreach (var item in Users)
-                                            {
-                                                <option value="@item.UserID">
-                                                    @item.FirstName @item.LastName
-                                                </option>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <option disabled selected>No hay usuarios disponibles</option>
-                                        }
-                                    </select>
+                                    <label for="description">Comentario</label>
+                                    <textarea id="description" @bind="request.Comentario" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +169,11 @@
                             <span>@Users.FirstOrDefault(u => u.UserID == item.AssignedTo)?.FirstName @Users.FirstOrDefault(u => u.UserID == item.AssignedTo)?.LastName</span>
                         </td>
                         <td>
-                            <button class="btn btn-warning fw-bold" @onclick="() => Seleccionar(item.TaskID)">EDITAR</button>
+                            <button class="btn btn-warning fw-bold" 
+                            @onclick="() => Seleccionar(item.TaskID)"
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="top" 
+                            title="Editar tarea ó agregar comentario">EDITAR</button>
                             <AuthorizeView Roles="Admin,Gerente">
                                 <button class="btn btn-danger fw-bold" @onclick="() => Eliminar(item)">BORRAR</button>
                             </AuthorizeView>
@@ -238,9 +251,8 @@
                         <div class="col">
                             <div class="mb-3">
                                 <strong>💬 Comentario:</strong>
-                                <textarea class="form-control" @bind="SeletedTask.Comentario" rows="4"></textarea>
+                                <textarea class="form-control" disabled @bind="SeletedTask.Comentario" rows="4"></textarea>
                             </div>
-                            <button class="btn btn-primary" @onclick="Send">Guardar Comentario</button>
                         </div>
                     </div>
                 }
