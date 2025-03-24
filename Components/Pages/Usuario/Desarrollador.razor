@@ -1,5 +1,5 @@
 ﻿@page "/desarrolladores"
-@attribute [Authorize]
+@attribute [Authorize (Roles="Admin,Gerente")]
 @using DevManager.Data.Response
 @inject IUserServices UserServices
 
