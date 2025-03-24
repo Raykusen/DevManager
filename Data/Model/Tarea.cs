@@ -13,6 +13,7 @@ namespace DevManager.Data.Models
         [Required]
         public string TaskName { get; set; } = null!;
         public string Description { get; set; } = null!;
+        public string? Comentario { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime DueDate { get; set; }
         public string Status { get; set; } = "Pending";
@@ -29,6 +30,7 @@ namespace DevManager.Data.Models
             ProjectID = tarea.ProjectID,
             TaskName = tarea.TaskName,
             Description = tarea.Description,
+            Comentario = tarea.Comentario,
             StartDate = tarea.StartDate,
             DueDate = tarea.DueDate,
             Status = tarea.Status,
@@ -43,6 +45,7 @@ namespace DevManager.Data.Models
             if (ProjectID != task.ProjectID) ProjectID = task.ProjectID; cambio = true;
             if (TaskName != task.TaskName) TaskName = task.TaskName; cambio = true;
             if (Description != task.Description) Description = task.Description; cambio = true;
+            if (Comentario != task.Comentario) Comentario = task.Comentario; cambio = true;
             if (StartDate != task.StartDate) StartDate = task.StartDate; cambio = true;
             if (DueDate != task.DueDate) DueDate = task.DueDate; cambio = true;
             if (Status != task.Status) Status = task.Status; cambio = true;
@@ -58,6 +61,7 @@ namespace DevManager.Data.Models
             ProjectID = ProjectID,
             TaskName = TaskName,
             Description = Description,
+            Comentario = Comentario,
             StartDate = StartDate,
             DueDate = DueDate,
             Status = Status,
