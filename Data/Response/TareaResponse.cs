@@ -8,6 +8,7 @@ public class TareaResponse
     public int ProjectID { get; set; }
     public string TaskName { get; set; } = null!;
     public string Description { get; set; } = null!;
+    public string? Comentario { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime DueDate { get; set; }
     public string Status { get; set; }
@@ -24,6 +25,7 @@ public class TareaResponse
             ProjectID = ProjectID,
             TaskName = TaskName,
             Description = Description,
+            Comentario = Comentario,
             StartDate = StartDate,
             DueDate = DueDate,
             Status = Status,
