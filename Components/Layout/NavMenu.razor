@@ -1,4 +1,4 @@
-﻿@* Sidebar fijo a la izquierda *@
+@* Sidebar fijo a la izquierda *@
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-dark sidebar">
     <a href="/" class="navbar-brand d-flex align-items-center mb-3 text-white text-decoration-none">
         <i class="bi bi-layers fs-3 me-2"></i>
@@ -23,12 +23,12 @@
                 <i class="bi bi-kanban"></i> Panel de Tareas
             </NavLink>
         </li>
-        <li>
-            <NavLink class="nav-link text-white" href="desarrolladores">
-                <i class="bi bi-code-slash"></i> Detalles de Usuarios
-            </NavLink>
-        </li>
         <AuthorizeView Roles="Admin,Gerente">
+            <li>
+                <NavLink class="nav-link text-white" href="desarrolladores">
+                    <i class="bi bi-code-slash"></i> Detalles de Usuarios
+                </NavLink>
+            </li>
             <li>
                 <NavLink class="nav-link text-white" href="usuarios">
                     <i class="bi bi-people"></i> Gestion de Usuarios
