@@ -6,6 +6,7 @@ public class TareaRequest
     public int ProjectID { get; set; }
     public string TaskName { get; set; } = null!;
     public string Description { get; set; } = null!;
+    public string? Comentario { get; set; }
     public DateTime StartDate { get; set; } = DateTime.Now;
     public DateTime DueDate { get; set; } = DateTime.Now.AddDays(7);
     public string Status { get; set; } = "Pending";
