@@ -1,4 +1,4 @@
-﻿@page "/tareas"
+@page "/tareas"
 @using DevManager.Data.Request
 @using DevManager.Data.Response
 @attribute [Authorize]
@@ -192,45 +192,56 @@
             <div class="modal-body p-4">
                 @if (SeletedTask != null)
                 {
-                    <div class="mb-3">
-                        <strong>📌 Nombre:</strong> @SeletedTask.TaskName
-                    </div>
-                    <div class="mb-3">
-                        <strong>📝 Descripción:</strong> @SeletedTask.Description
-                    </div>
-                    <div class="mb-3">
-                        <strong>📂 Proyecto:</strong> @SeletedTask.Project.ProjectName
-                    </div>
-                    <div class="mb-3">
-                        <strong>📌 Estado:</strong> 
-                        <span class="badge bg-warning text-dark">@SeletedTask.Status</span>
-                    </div>
-                    <div class="mb-3">
-                        <strong>🔥 Prioridad:</strong> 
-                        <span class="badge @(SeletedTask.Priority == "Alta" ? "bg-danger" : (SeletedTask.Priority == "Media" ? "bg-warning text-dark" : "bg-success"))">
-                            @SeletedTask.Priority
-                        </span>
-                    </div>
-                    <div class="mb-3 d-flex align-items-center">
-                        <strong class="me-2">👤 Creador:</strong> 
-                        <span class="badge bg-primary">
-                            @Users.FirstOrDefault(u => u.UserID == SeletedTask.CreatedBy)?.FirstName 
-                            @Users.FirstOrDefault(u => u.UserID == SeletedTask.CreatedBy)?.LastName
-                        </span>
-                    </div>
-                    <div class="mb-3 d-flex align-items-center">
-                        <strong class="me-2">👤 Asignado a:</strong> 
-                        <span class="badge bg-success">
-                            @(SeletedTask.AssignedTo != null ? 
-                                $"{Users.FirstOrDefault(u => u.UserID == SeletedTask.AssignedTo)?.FirstName} {Users.FirstOrDefault(u => u.UserID == SeletedTask.AssignedTo)?.LastName}" : 
-                                "No asignado")
-                        </span>
-                    </div>
-                    <div class="mb-3">
-                        <strong>📅 Fecha de Inicio:</strong> @SeletedTask.StartDate.ToShortDateString()
-                    </div>
-                    <div class="mb-3">
-                        <strong>🏁 Fecha de Finalización:</strong> @(SeletedTask.DueDate.ToShortDateString() ?? "No definida")
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <strong>📌 Nombre:</strong> @SeletedTask.TaskName
+                            </div>
+                            <div class="mb-3">
+                                <strong>📝 Descripción:</strong> @SeletedTask.Description
+                            </div>
+                            <div class="mb-3">
+                                <strong>📂 Proyecto:</strong> @SeletedTask.Project.ProjectName
+                            </div>
+                            <div class="mb-3">
+                                <strong>📌 Estado:</strong> 
+                                <span class="badge bg-warning text-dark">@SeletedTask.Status</span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>🔥 Prioridad:</strong> 
+                                <span class="badge @(SeletedTask.Priority == "Alta" ? "bg-danger" : (SeletedTask.Priority == "Media" ? "bg-warning text-dark" : "bg-success"))">
+                                    @SeletedTask.Priority
+                                </span>
+                            </div>
+                            <div class="mb-3 d-flex align-items-center">
+                                <strong class="me-2">👤 Creador:</strong> 
+                                <span class="badge bg-primary">
+                                    @Users.FirstOrDefault(u => u.UserID == SeletedTask.CreatedBy)?.FirstName 
+                                    @Users.FirstOrDefault(u => u.UserID == SeletedTask.CreatedBy)?.LastName
+                                </span>
+                            </div>
+                            <div class="mb-3 d-flex align-items-center">
+                                <strong class="me-2">👤 Asignado a:</strong> 
+                                <span class="badge bg-success">
+                                    @(SeletedTask.AssignedTo != null ? 
+                                        $"{Users.FirstOrDefault(u => u.UserID == SeletedTask.AssignedTo)?.FirstName} {Users.FirstOrDefault(u => u.UserID == SeletedTask.AssignedTo)?.LastName}" : 
+                                        "No asignado")
+                                </span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>📅 Fecha de Inicio:</strong> @SeletedTask.StartDate.ToShortDateString()
+                            </div>
+                            <div class="mb-3">
+                                <strong>🏁 Fecha de Finalización:</strong> @(SeletedTask.DueDate.ToShortDateString() ?? "No definida")
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <strong>💬 Comentario:</strong>
+                                <textarea class="form-control" @bind="SeletedTask.Comentario" rows="4"></textarea>
+                            </div>
+                            <button class="btn btn-primary" @onclick="Send">Guardar Comentario</button>
+                        </div>
                     </div>
                 }
                 else
@@ -346,6 +357,10 @@
         if (request.TaskID == 0)
         {
             request.CreatedBy = Convert.ToInt32(UserId);
+            if (SeletedTask.Comentario != null)
+            {
+                request.Comentario = SeletedTask.Comentario;
+            }
             //Debo registrar el contacto..
             var r = await tareaServices.Crear(request);
             if (r.Exitoso)
